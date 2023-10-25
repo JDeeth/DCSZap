@@ -1,0 +1,9 @@
+*.lnk
+__pycache__
+*.egg-info
+.coverage
+_build/*
+docs/build
+*.swp
+*.sh
+venv/
