@@ -8,7 +8,7 @@ from dcs_bios_socket import DcsBiosSocket
 sample_script = """
 script SA342M_Preflight
 description Gazelle SA342M Preflight
-default_interval 0.3
+interval 0.3
 set PANEL_LIGHTING 1
 set DASHBOARD_LIGHTING 0.05
 pause 0.8
@@ -20,18 +20,13 @@ def test_load_good_script():
     scr = Script(sample_script)
     assert scr.name == "SA342M_Preflight"
     assert scr.description == "Gazelle SA342M Preflight"
-    assert scr.default_interval == 0.3
+    assert scr.interval == 0.3
     assert scr.steps == [
         ("set", "PANEL_LIGHTING 1"),
         ("set", "DASHBOARD_LIGHTING 0.05"),
         ("pause", "0.8"),
         ("set", "TV_ON_OFF 1"),
     ]
-
-
-def test_wtf():
-    c = call("asdf", 234)
-    assert c.args[0] == "asdf"
 
 
 def test_good_script_makes_correct_calls(mocker):

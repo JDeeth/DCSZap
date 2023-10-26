@@ -9,9 +9,9 @@ class DcsBiosSocket:
         self._port = port
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    def send_cmd(self, cmd, arg):
-        """Send a command and an argument to DCS-BIOS"""
+    def send_cmd(self, identifier, arg):
+        """Send command to DCS-BIOS"""
         self._sock.sendto(
-            bytes(f"{cmd} {arg}\n", "utf-8"),
+            bytes(f"{identifier} {arg}\n", "utf-8"),
             (self._addr, self._port),
         )

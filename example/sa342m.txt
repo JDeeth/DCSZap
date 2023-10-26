@@ -1,0 +1,31 @@
+script SA342M_Preflight
+description Gazelle SA342M Preflight
+interval 0.3
+
+set PANEL_LIGHTING 1
+set DASHBOARD_LIGHTING 0.05
+pause 0.8
+set TV_ON_OFF 1
+
+set TABLET_PW               1
+set TABLET_SHOW             1
+set PANEL_LIGHTING          1
+set DASHBOARD_LIGHTING      0.05
+set UV_LIGHTING             0.40
+set NADIR_ON_OFF_BRIGHTNESS 0.05
+set HA_SOURCE               3
+set FLARE_DISPENSER_OFF_ON  1
+set HOT3_PANEL_TEST_OFF_ON  3
+set HOT3_BRIGHTNESS         0.05
+set HOT3_STATION_SELECT     1
+set LASER_POWER             1
+set CTH_POWER               2
+set TV_ON_OFF               1
+set RWR_BRIGHTNESS          0.03
+set RADAR_ALT_BUG           2215
+# ~10 m
+set LASING_BUTTON_COVER     1
+set MISSILE_LAUNCH_COVER    1
+set FLARE_DISP_FIRE_CAP     1
+set WEAPONS_MASTER_ARM      1
+set ANTICOLL_LIGHTS         1
