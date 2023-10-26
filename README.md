@@ -1,7 +1,7 @@
 # DCSZap
 
 This is a minimal DCS-BIOS client to automate setting aircraft controls from
-TOML scripts.
+text files.
 
 With thanks to SlipHavoc for [DCSAutoMate](https://github.com/SlipHavoc/DCSAutoMate), the inspiration for this project.
 I wanted to build something more lightweight, which ingests text files rather
@@ -22,28 +22,43 @@ need to clone the repo.
 At this point, all the app does is turn the Gazelle's panel lights on and off
 each time you press Enter.
 
-## Misc
+## Usage
 
-Gazelle M preflight:
+Input will be text files in a simple format:
 
-"TABLET_PW", 1, "Tablet: Off"
-"TABLET_SHOW", 1, "Tablet: Stow"
-"PANEL_LIGHTING", 1, "Panel lighting: Marche"
-"DASHBOARD_LIGHTING", int16(0.05), "Dashboard lighting: Adjust"
-"UV_LIGHTING", int16(0.40), "UV lighting: Adjust"
-"NADIR_ON_OFF_BRIGHTNESS", int16(0.05), "NADIR lighting: Adjust"
-"HA_SOURCE", 3, "Flight director source: DOP"
-"FLARE_DISPENSER_OFF_ON", 1, "Flare Dispenser: VitE"
-"HOT3_PANEL_TEST_OFF_ON", 3, "HOT3 weapon key: JOUR"
-"HOT3_BRIGHTNESS", int16(0.05), "HOT3 brightness: Adjust"
-"HOT3_STATION_SELECT", 1, "HOT3 station select: 1"
-"LASER_POWER", 1, "BCV (video box) power: Marche"
-"CTH_POWER", 2, "CTH (thermal camera) power: Marche"
-"TV_ON_OFF", 1, "TV: On"
-"RWR_BRIGHTNESS", int16(0.03), "RWR brightness: Adjust"
-"RADAR_ALT_BUG", 2215, "Radar Altimeter bug: Adjust"  # to 10m
-"LASING_BUTTON_COVER", 1, "Lasing button cover: Open"
-"MISSILE_LAUNCH_COVER", 1, "Missile launch button cover: Open"
-"FLARE_DISP_FIRE_CAP", 1, "Flare Dispenser cover: Open"
-"WEAPONS_MASTER_ARM", 1, "Master Arm: Marche"
-"ANTICOLL_LIGHTS", 1, "Anticollision lights: Arret"
+> ```
+> script SA342M_Preflight
+> description Gazelle SA342M Preflight
+> default_interval 0.3
+> set PANEL_LIGHTING 1
+> set DASHBOARD_LIGHTING 0.05
+> pause 0.8
+> set TV_ON_OFF 1
+> ```
+
+The first three lines set the name and description for the script, and set the
+default interval in seconds between commands.
+
+The remainder of the file is `set` and `pause` commands.
+
+`set` is followed by the DCS-BIOS reference and the value to be set. Values
+containing a decimal place will be interpreted as floating point and mapped to
+the 0-65535 range. Otherwise the values will be sent as-is.
+
+> `set APPLESAUCE 1` sets it to 1  
+> `set APPLESAUCE 1.0` sets it to 65535
+
+This means you can use `-<decrease_by>|+<increase_by>` if the item supports it:
+> `set ANTICOLL_INTENSITY +3277` - increase by 3277 / ~5%  
+> `set ANTICOLL_INTENSITY -3277` - decrease by 3277 / ~5%
+
+`pause` will set a custom interval, in seconds, between the previous command and
+the next. This is instead of, not in addition to, the default interval.
+
+Warning - there's no timer code implemented yet - if run all the commands will
+be sent one after another.
+
+## Todo
+- implement timer code
+- implement UI to load and select scripts manually
+- implement data read from DCS-BIOS for selecting and starting scripts...?
