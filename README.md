@@ -9,13 +9,17 @@ than .py scripts, at the expense of not having keyboard input or text-to-speech.
 
 ## Installation
 
-1. Install [the FlightPanels/Skunkworks fork of DCS-BIOS](https://github.com/DCS-Skunkworks/dcs-bios)
-2. Install [Bort](https://github.com/DCS-Skunkworks/Bort/releases) for writing/editing your own scripts
-3. `git clone https://github.com/jdeeth/dcszap`
-4. (recommended) `py -m venv venv` then `venv/Scripts/activate` in `dcszap` directory
-5. `py -m pip install .`
-6. Create/copy scripts into `(your user directory)/Saved Games/DCSZap`
-7. `dcszap`
+1. Install any recent Python 3 version (3.7 or later)
+2. Install [the FlightPanels/Skunkworks fork of DCS-BIOS](https://github.com/DCS-Skunkworks/dcs-bios)
+3. Install [Bort](https://github.com/DCS-Skunkworks/Bort/releases) for writing/editing your own scripts
+4. Copy `dcszap.py` and place it somewhere convenient
+5. Create/copy scripts into `(your user directory)/Saved Games/DCSZap`
+6. Run DCSZap with Python: `py dcszap.py`
+
+Or:
+4. Clone/download this repository
+5. `py -m pip install .` within the directory
+6. Run with `dcszap`
 
 ## Usage
 
@@ -50,6 +54,11 @@ set APPLESAUCE 0.0 # sends APPLESAUCE 0
 set APPLESAUCE 0.5 # sends APPLESAUCE 32767
 set APPLESAUCE 1.0 # sends APPLESAUCE 65535
 ```
+Numbers outside the 0.0 to 1.0 range will be clamped to 0.0 to 1.0:
+```
+set APPLESAUCE -2.0 # sends APPLESAUCE 0
+set APPLESAUCE 42.5 # sends APPLESAUCE 65535
+```
 Otherwise the argument is sent as written.
 ```
 set APPLESAUCE 0
@@ -61,12 +70,9 @@ set APPLESAUCE INC
 `pause` adds a delay between two actions, in addition to the normal interval.
 
 Lines which don't begin with `script`, `description`, `interval`, `set` or `pause`
-are ignore and can be used for comments.
+are ignored and can be used for comments.
 
 ## Next steps
 
-- reorganise into a single .py file
 - publish on pypi
-- support for end-of-line comments
-- verbose mode
 - config file/command line arguments for address, port, scripts folder, etc

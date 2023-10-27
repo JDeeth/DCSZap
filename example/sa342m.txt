@@ -2,30 +2,24 @@ script SA342M_Preflight
 description Gazelle SA342M Preflight
 interval 0.3
 
-set PANEL_LIGHTING 1
-set DASHBOARD_LIGHTING 0.05
-pause 0.8
-set TV_ON_OFF 1
-
-set TABLET_PW               1
-set TABLET_SHOW             1
-set PANEL_LIGHTING          1
-set DASHBOARD_LIGHTING      0.05
-set UV_LIGHTING             0.40
-set NADIR_ON_OFF_BRIGHTNESS 0.05
-set HA_SOURCE               3
-set FLARE_DISPENSER_OFF_ON  1
-set HOT3_PANEL_TEST_OFF_ON  3
-set HOT3_BRIGHTNESS         0.05
-set HOT3_STATION_SELECT     1
-set LASER_POWER             1
-set CTH_POWER               2
-set TV_ON_OFF               1
-set RWR_BRIGHTNESS          0.03
-set RADAR_ALT_BUG           2215
-# ~10 m
-set LASING_BUTTON_COVER     1
-set MISSILE_LAUNCH_COVER    1
-set FLARE_DISP_FIRE_CAP     1
-set WEAPONS_MASTER_ARM      1
-set ANTICOLL_LIGHTS         1
+set TABLET_PW               1       # Tablet: Off
+set TABLET_SHOW             1       # Tablet: Stow
+set PANEL_LIGHTING          1       # Panel lighting: On
+set DASHBOARD_LIGHTING      0.05    # Backlight brightness: Adjust
+set UV_LIGHTING             0.40    # Fluorescent brightess: Adjust
+set NADIR_ON_OFF_BRIGHTNESS 0.05    # NADIR brightness: Adjust
+set HA_SOURCE               3       # Flight director source: DOP
+set FLARE_DISPENSER_OFF_ON  1       # Flare dispensers: Fast (VE)
+set HOT3_PANEL_TEST_OFF_ON  3       # HOT3 panel: Day (Jour)
+set HOT3_BRIGHTNESS         0.05    # HOT3 brightness: Adjust
+set HOT3_STATION_SELECT     1       # HOT3 station: Pylon 1
+set LASER_POWER             1       # VCB power: On
+set CTH_POWER               2       # Thermal camera power: On
+set TV_ON_OFF               1       # TV: On
+set RWR_BRIGHTNESS          0.03    # RWR brightness: Adjust
+set RADAR_ALT_BUG           2215    # Radar altimeter bug: Adjust (10m)
+set LASING_BUTTON_COVER     1       # Lasing button cover: Open
+set MISSILE_LAUNCH_COVER    1       # Missile launch cover: Open
+set FLARE_DISP_FIRE_CAP     1       # Flare dispense switch cover: Open
+set WEAPONS_MASTER_ARM      1       # Master arm: On
+set ANTICOLL_LIGHTS         1       # Anticollision lights: Off
