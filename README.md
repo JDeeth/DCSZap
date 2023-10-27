@@ -11,12 +11,13 @@ than .py scripts, at the expense of not having keyboard input or text-to-speech.
 
 1. Install any recent Python 3 version (3.7 or later)
 2. Install [the FlightPanels/Skunkworks fork of DCS-BIOS](https://github.com/DCS-Skunkworks/dcs-bios)
-3. Install [Bort](https://github.com/DCS-Skunkworks/Bort/releases) for writing/editing your own scripts
+3. Download [Bort](https://github.com/DCS-Skunkworks/Bort/releases) to assist with writing your own scripts
 4. Copy `dcszap.py` and place it somewhere convenient
 5. Create/copy scripts into `(your user directory)/Saved Games/DCSZap`
-6. Run DCSZap with Python: `py dcszap.py`
+6. `py dcszap.py` or open the file with Python from File Explorer
 
 Or:
+
 4. Clone/download this repository
 5. `py -m pip install .` within the directory
 6. Run with `dcszap`
