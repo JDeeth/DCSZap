@@ -30,7 +30,7 @@ def test_load_good_script():
 def test_good_script_makes_correct_calls(mocker):
     mock_socket = mocker.patch("dcszap.socket.socket", autospec=True).return_value
 
-    app = App("192.100.200.300", 24601, os.curdir)
+    app = App("192.100.200.300", 24601, os.curdir, True)
     scr = Script(sample_script)
     scr.run(app, False)
 
@@ -53,7 +53,7 @@ def test_float_conversion(mocker):
     """
     mock_socket = mocker.patch("dcszap.socket.socket", autospec=True).return_value
 
-    app = App("192.100.200.300", 24601, os.curdir)
+    app = App("192.100.200.300", 24601, os.curdir, True)
     scr = Script(inpt)
     scr.run(app, False)
 

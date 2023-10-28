@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import argparse
 from dataclasses import dataclass
 import os
 import os.path
@@ -6,7 +7,7 @@ import sys
 from time import sleep
 import socket
 
-__version_info__ = (0, 3, 0)
+__version_info__ = (0, 4, 0)
 __version__ = ".".join(str(i) for i in __version_info__)
 
 
@@ -56,43 +57,33 @@ class Script:
         with open(filename, encoding="utf_8") as file:
             return Script(file.read())
 
-    def run(self, dcs_socket, verbose):
+    def run(self, dcs_socket, quiet):
         """Execute the sequence of steps"""
+        p = (lambda *a, **kw: None) if quiet else print
         for step in self.steps:
             if step.action == "set":
                 identifier, _, arg = step.argument.partition(" ")
                 arg = float_to_65535(arg)
-                if verbose:
-                    cmt1, _, cmt2 = step.comment.partition(":")
-                    print(f"{identifier:32}{arg:<16}{cmt1:32}{cmt2}")
+                cmt1, _, cmt2 = step.comment.partition(":")
+                p(f"{identifier:32}{arg:<16}{cmt1:32}{cmt2}")
                 dcs_socket.send_cmd(identifier, arg)
                 sleep(self.interval)
             elif step.action == "pause":
-                if verbose:
-                    print(f"Pause {step.argument}s")
+                p(f"Pause {step.argument}s")
                 sleep(float(step.argument))
 
 
 class App:
-    def __init__(self, addr=None, port=None, script_dir=None):
-        if not addr:
-            addr = input("DCS IP address [127.0.0.1]: ") or "127.0.0.1"
-        self._addr = addr
-
-        if not port:
-            port = input("DCS-BIOS port [7778]: ") or 7778
-        self._port = port
-
+    def __init__(self, host, port, script_dir, quiet):
+        self._addr = (host, port)
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-        if not script_dir:
-            script_dir = os.path.join(os.getenv("USERPROFILE"), "Saved Games", "DCSZap")
         if not os.path.exists(script_dir):
             print(f"Error: Scripts directory does not exist: {script_dir}")
             sys.exit()
         self._script_dir = script_dir
+        self._quiet = quiet
 
-    def run(self, verbose=True):
+    def run(self):
         """Repeatedly prompt to select and run a script"""
         while True:
             print(f"Scripts located in {self._script_dir}:")
@@ -109,20 +100,61 @@ class App:
                 sys.exit()
             if selection not in range(0, len(scripts)):
                 continue
-            scripts[selection].run(self, verbose)
-            print("Script complete!\n")
+            scripts[selection].run(self, self._quiet)
+            if not self._quiet:
+                print("Script complete!\n")
 
     def send_cmd(self, identifier, arg):
         """Send command to DCS-BIOS"""
-        self._sock.sendto(
-            bytes(f"{identifier} {arg}\n", "utf-8"),
-            (self._addr, self._port),
-        )
+        self._sock.sendto(bytes(f"{identifier} {arg}\n", "utf-8"), self._addr)
 
 
 def main():
     """Start app"""
-    app = App(addr="127.0.0.1", port=7778)
+
+    def dir_path(path):
+        if not os.path.isdir(path):
+            raise argparse.ArgumentTypeError(f"{path} is not a directory")
+        return path
+
+    default_dir = os.path.join(os.getenv("USERPROFILE"), "Saved Games", "DCSZap")
+
+    parser = argparse.ArgumentParser(
+        description="Send a sequence of commands to DCS-BIOS from a text file"
+    )
+    parser.add_argument(
+        "-a",
+        "--host",
+        default="127.0.0.1",
+        help="computer running DCS",
+    )
+    parser.add_argument(
+        "-p",
+        "--port",
+        type=int,
+        default=7778,
+        help="DCS-BIOS port",
+    )
+    parser.add_argument(
+        "-d",
+        "--scripts",
+        type=dir_path,
+        default=default_dir,
+        help="DCSZap scripts directory",
+    )
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="don't print output when running script",
+    )
+    args = parser.parse_args()
+    app = App(
+        host=args.host,
+        port=args.port,
+        script_dir=args.scripts,
+        quiet=args.quiet,
+    )
     app.run()
 
 
