@@ -23,19 +23,6 @@ Or:
 
 ## Usage
 
-Scripts are text files:
-
-```
-script SA342M_Preflight
-description Gazelle SA342M Preflight
-interval 0.3
-
-set PANEL_LIGHTING 1            # Instrument backlighting: ON
-set DASHBOARD_LIGHTING 0.05     # Instrument backlighting: Adjust to 5%
-pause 0.8
-set TV_ON_OFF 1                 # Viviane TV: On
-```
-
 DCSZap looks for scripts in `(your user directory)/Saved Games/DCSZap` by
 default. You can specify a different directory:
 ```
@@ -55,6 +42,21 @@ Scripts located in C:/users/Joe Bloggs/Saved Games/DCSZap:
 If DCS is running on a different computer, or if DCS-BIOS isn't using port 7778:
 ```
 dcszap --host 192.168.123.45 --port 24601
+```
+
+## Scripts
+
+Scripts are text files:
+
+```
+script SA342M_Preflight
+description Gazelle SA342M Preflight
+interval 0.3
+
+set PANEL_LIGHTING 1            # Instrument backlighting: ON
+set DASHBOARD_LIGHTING 0.05     # Instrument backlighting: Adjust to 5%
+pause 0.8
+set TV_ON_OFF 1                 # Viviane TV: On
 ```
 
 
