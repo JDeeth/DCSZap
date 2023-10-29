@@ -3,10 +3,6 @@
 This is a minimal DCS-BIOS client to automate setting aircraft controls from
 text files.
 
-With thanks to SlipHavoc for [DCSAutoMate](https://github.com/SlipHavoc/DCSAutoMate), the inspiration for this project.
-I wanted to build something more lightweight, which ingests text files rather
-than .py scripts, at the expense of not having keyboard input or text-to-speech.
-
 ## Installation
 
 1. Install any recent Python 3 version (3.7 or later)
@@ -106,7 +102,15 @@ Ideas, bugfixes, pull requests etc are all welcome too, preferably via GitHub.
 
 ## Next steps
 
-- set up `tox` to test against multiple Python versions
 - command line option to specify a specific script rather than select from directory
 - 2-way comms with DCS-BIOS to, e.g., select a script automatically on loading
   a module, start scripts from within DCS…
+
+## Related projects
+
+With thanks to SlipHavoc for [DCSAutoMate](https://github.com/SlipHavoc/DCSAutoMate), the inspiration for this project.
+DCSAutoMate includes the ability to simulate keypresses to carry out actions
+unavailable via DCS-BIOS, and is driven from Python scripts, which gives a
+great deal of additional flexibility. I wanted to make a system which is more
+lightweight, which can be installed and run without much Python expertise and
+without using auto-py-to-exe.

@@ -10,3 +10,4 @@ venv/
 .vscode/
 build/
 dist/
+.tox/

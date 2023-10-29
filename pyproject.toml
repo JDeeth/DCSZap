@@ -47,6 +47,7 @@ dev = [
     "black",
     "bumpver",
     "pre-commit",
+    "tox",
 ]
 publish = ["setuptools>=61.1.0", "build", "twine"]
 
@@ -72,3 +73,28 @@ tag = true
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['version = "{version}"$']
 "dcszap.py" = ['^__version__ = "{version}"$']
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    min_version = 4.0
+    env_list =
+        py312
+        py311
+        py310
+        py39
+        py38
+        py37
+
+    [testenv]
+    deps =
+        pytest
+        pytest-mock
+    commands = pytest tests
+
+    [testenv:py37]
+    deps =
+        pytest
+        pytest-mock==3.11.1
+    commands = pytest tests
+"""
