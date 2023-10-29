@@ -46,6 +46,7 @@ dev = [
     "pylint",
     "black",
     "bumpver",
+    "pre-commit",
 ]
 publish = ["setuptools>=61.1.0", "build", "twine"]
 
