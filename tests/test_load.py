@@ -29,6 +29,7 @@ def test_load_good_script():
 
 def test_good_script_makes_correct_calls(mocker):
     mock_socket = mocker.patch("dcszap.socket.socket", autospec=True).return_value
+    mock_sleep = mocker.patch("dcszap.sleep")
 
     app = App("192.100.200.300", 24601, os.curdir, True)
     scr = Script(sample_script)
@@ -39,6 +40,7 @@ def test_good_script_makes_correct_calls(mocker):
         b"DASHBOARD_LIGHTING 3276\n",
         b"TV_ON_OFF 1\n",
     ]
+    assert [c.args[0] for c in mock_sleep.mock_calls] == [0.3, 0.3, 0.8, 0.3]
 
 
 def test_float_conversion(mocker):
@@ -52,6 +54,7 @@ def test_float_conversion(mocker):
         set APPLESAUCE 1.00
     """
     mock_socket = mocker.patch("dcszap.socket.socket", autospec=True).return_value
+    mock_sleep = mocker.patch("dcszap.sleep")
 
     app = App("192.100.200.300", 24601, os.curdir, True)
     scr = Script(inpt)

@@ -106,7 +106,7 @@ Ideas, bugfixes, pull requests etc are all welcome too, preferably via GitHub.
 
 ## Next steps
 
-- publish on pypi
+- set up `tox` to test against multiple Python versions
 - command line option to specify a specific script rather than select from directory
 - 2-way comms with DCS-BIOS to, e.g., select a script automatically on loading
   a module, start scripts from within DCS…
