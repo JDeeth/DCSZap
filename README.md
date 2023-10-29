@@ -13,7 +13,7 @@ than .py scripts, at the expense of not having keyboard input or text-to-speech.
 2. Install [the FlightPanels/Skunkworks fork of DCS-BIOS](https://github.com/DCS-Skunkworks/dcs-bios)
 3. Download [Bort](https://github.com/DCS-Skunkworks/Bort/releases) to assist with writing your own scripts
 4. Clone/download this repository
-5. `py ./src/dcszap.py --scripts ./example`
+5. `py ./dcszap.py --scripts ./example`
 
 Or:
 
@@ -95,6 +95,14 @@ Lines which don't begin with `script`, `description`, `interval`, `set` or `paus
 are ignored and can be used for comments.
 
 End-of-line comments start with `#` and are displayed when the script runs.
+
+## Contributing
+
+If you've written a DCSZap script and you'd like it to be included as an
+example, please let me know (via an issue, pull request, Discord, or forum)
+and I'd be delighted to include it with attribution.
+
+Ideas, bugfixes, pull requests etc are all welcome too, preferably via GitHub.
 
 ## Next steps
 

@@ -3,12 +3,15 @@ import argparse
 from dataclasses import dataclass
 import os
 import os.path
+import re
 import sys
 from time import sleep
 import socket
 
-__version_info__ = (0, 4, 0)
-__version__ = ".".join(str(i) for i in __version_info__)
+__version__ = "0.4.0"
+__version_info__ = tuple(
+    int(re.match(r"^\d+", i).group()) for i in __version__.split(".")
+)
 
 
 def float_to_65535(arg):
@@ -24,6 +27,8 @@ def float_to_65535(arg):
 
 @dataclass(frozen=True)
 class Step:
+    """An instruction in a DCSZap script"""
+
     action: str
     argument: str
     comment: str = ""
