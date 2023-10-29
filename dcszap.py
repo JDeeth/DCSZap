@@ -8,7 +8,7 @@ import sys
 from time import sleep
 import socket
 
-__version__ = "0.4.1"
+__version__ = "0.4.2"
 __version_info__ = tuple(
     int(re.match(r"^\d+", i).group()) for i in __version__.split(".")
 )
