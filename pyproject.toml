@@ -73,6 +73,7 @@ tag = true
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['version = "{version}"$']
 "dcszap.py" = ['^__version__ = "{version}"$']
+"README.md" = ['Version {version}$']
 
 [tool.tox]
 legacy_tox_ini = """

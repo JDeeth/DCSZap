@@ -117,15 +117,13 @@ class App:
 def main():
     """Start app"""
 
-    def dir_path(path):
-        if not os.path.isdir(path):
-            raise argparse.ArgumentTypeError(f"{path} is not a directory")
-        return path
-
     default_dir = os.path.join(os.getenv("USERPROFILE"), "Saved Games", "DCSZap")
 
     parser = argparse.ArgumentParser(
-        description="Send a sequence of commands to DCS-BIOS from a text file"
+        description="Send a sequence of commands to DCS-BIOS from a text file",
+    )
+    parser.add_argument(
+        "-v", "--version", action="store_true", help="show version number and exit"
     )
     parser.add_argument(
         "-a",
@@ -143,7 +141,6 @@ def main():
     parser.add_argument(
         "-d",
         "--scripts",
-        type=dir_path,
         default=default_dir,
         help="DCSZap scripts directory",
     )
@@ -154,6 +151,18 @@ def main():
         help="don't print output when running script",
     )
     args = parser.parse_args()
+    if args.version:
+        print(f"dcszap {__version__}")
+        sys.exit()
+
+    if not os.path.isdir(args.scripts):
+        print(
+            f"""\
+Error: {args.scripts} is not a directory
+Create this directory, or use --scripts to specify a different directory"""
+        )
+        sys.exit(-1)
+
     app = App(
         host=args.host,
         port=args.port,
