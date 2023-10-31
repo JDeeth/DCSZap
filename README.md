@@ -3,7 +3,7 @@
 This is a minimal DCS-BIOS client to automate setting aircraft controls from
 text files.
 
-Version 0.4.2
+Version 0.4.3
 
 ## Installation
 

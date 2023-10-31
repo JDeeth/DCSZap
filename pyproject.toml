@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dcszap"
-version = "0.4.2"
+version = "0.4.3"
 authors = [{ name = "Jack Deeth", email = "developer@jackdeeth.org.uk" }]
 description = "DCS-BIOS client to automate aircraft setup"
 license = { file = "LICENSE" }
@@ -60,7 +60,7 @@ mock_traceback_monkeypatch = true
 
 
 [tool.bumpver]
-current_version = "0.4.2"
+current_version = "0.4.3"
 version_pattern = "MAJOR.MINOR[.PATCH[PYTAGNUM]]"
 commit_message = "bump version to {new_version}"
 tag_message = "{new_version}"
