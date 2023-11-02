@@ -51,6 +51,11 @@ dev = [
 ]
 publish = ["setuptools>=61.1.0", "build", "twine"]
 
+[tool.pylint.'MESSAGES CONTROL']
+disable = """
+    missing-module-docstring
+"""
+
 [tool.pytest]
 xfail_strict = true
 addopts = ["--cov=dcszap", "-p no:faulthandler", "--strict-markers"]

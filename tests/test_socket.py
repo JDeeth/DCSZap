@@ -1,12 +1,13 @@
 # pylint: skip-file
 import os
-from dcszap import App
+from dcszap import App, AppConfig
 
 
 def test_send_command(mocker):
     mock_socket = mocker.patch("dcszap.socket.socket", autospec=True).return_value
 
-    app = App("192.1.2.3", 24601, os.curdir, True)
+    config = AppConfig(host="192.1.2.3", port=24601, script_dir=os.curdir)
+    app = App(config)
     app.send_cmd("PANEL_LIGHTING", 1)
 
     mock_socket.sendto.assert_called_once_with(

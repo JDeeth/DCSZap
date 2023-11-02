@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import argparse
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import os
 import os.path
 import re
@@ -78,15 +78,32 @@ class Script:
                 sleep(float(step.argument))
 
 
+def default_script_dir():
+    """in Saved Games Windows folder, or in Example subfolder"""
+    user_profile = os.getenv("USERPROFILE")
+    if user_profile:
+        return os.path.join(user_profile, "Saved Games", "DCSZap")
+    return os.path.join(os.curdir, "example")
+
+
+@dataclass
+class AppConfig:
+    """Parameters for app to run"""
+
+    host: str = "127.0.0.1"
+    port: int = 7778
+    script_dir: str = field(default_factory=default_script_dir)
+    quiet: bool = False
+
+
 class App:
-    def __init__(self, host, port, script_dir, quiet):
-        self._addr = (host, port)
+    """Show, select and run scripts"""
+
+    def __init__(self, config=AppConfig()):
+        self._addr = (config.host, config.port)
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        if not os.path.exists(script_dir):
-            print(f"Error: Scripts directory does not exist: {script_dir}")
-            sys.exit()
-        self._script_dir = script_dir
-        self._quiet = quiet
+        self._script_dir = config.script_dir
+        self._quiet = config.quiet
 
     def run(self):
         """Repeatedly prompt to select and run a script"""
@@ -116,9 +133,6 @@ class App:
 
 def main():
     """Start app"""
-
-    default_dir = os.path.join(os.getenv("USERPROFILE"), "Saved Games", "DCSZap")
-
     parser = argparse.ArgumentParser(
         description="Send a sequence of commands to DCS-BIOS from a text file",
     )
@@ -141,7 +155,6 @@ def main():
     parser.add_argument(
         "-d",
         "--scripts",
-        default=default_dir,
         help="DCSZap scripts directory",
     )
     parser.add_argument(
@@ -155,20 +168,23 @@ def main():
         print(f"dcszap {__version__}")
         sys.exit()
 
-    if not os.path.isdir(args.scripts):
+    app_config = AppConfig(
+        host=args.host,
+        port=args.port,
+        quiet=args.quiet,
+    )
+    if args.scripts:
+        app_config.script_dir = args.scripts
+
+    if not os.path.isdir(app_config.script_dir):
         print(
             f"""\
-Error: {args.scripts} is not a directory
+Error: {app_config.script_dir} is not a directory
 Create this directory, or use --scripts to specify a different directory"""
         )
         sys.exit(-1)
 
-    app = App(
-        host=args.host,
-        port=args.port,
-        script_dir=args.scripts,
-        quiet=args.quiet,
-    )
+    app = App(app_config)
     app.run()
 
 

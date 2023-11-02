@@ -78,7 +78,6 @@ dcszap --help
 ## Scripts
 
 Scripts are text files:
-
 ```
 script SA342M_Preflight
 description Gazelle SA342M Preflight
