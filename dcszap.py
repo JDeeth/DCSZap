@@ -109,20 +109,21 @@ class App:
         """Repeatedly prompt to select and run a script"""
         while True:
             print(f"Scripts located in {self._script_dir}:")
-            scripts = []
+            filenames = []
             for filename in os.listdir(self._script_dir):
                 full_filename = os.path.join(self._script_dir, filename)
                 if os.path.isfile(full_filename) and filename.endswith(".txt"):
-                    scripts.append(Script.load(full_filename))
-            for i, script in enumerate(scripts, start=1):
+                    filenames.append(full_filename)
+            for i, filename in enumerate(filenames, start=1):
+                script = Script.load(filename)
                 print(f"{i:2} {script.name:32}{script.description}")
             try:
                 selection = int(input("> ")) - 1
             except (KeyboardInterrupt, ValueError):
                 sys.exit()
-            if selection not in range(0, len(scripts)):
+            if selection not in range(0, len(filenames)):
                 continue
-            scripts[selection].run(self, self._quiet)
+            Script.load(filenames[selection]).run(self, self._quiet)
             if not self._quiet:
                 print("Script complete!\n")
 

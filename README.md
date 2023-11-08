@@ -131,10 +131,7 @@ For controls like instrument brightness knobs which take a number between
 point number. DCSZap converts these into into integers - `0.0` to `0`, `1.0`
 to `65535`.
 
-Presently the scripts are loaded into memory at the time they are displayed
-for selection, so if you've edited a script with DCSZap waiting for a selection
-and then you run it, you'll run the old version. To reload the list, enter a
-number that doesn't correspond to any script e.g. 0.
+To reload the list, enter a number that doesn't correspond to any script e.g. 0.
 
 For more guidance on DCS-BIOS commands, please see:
 - [the DCS-BIOS documentation](https://github.com/DCS-Skunkworks/dcs-bios/blob/master/Scripts/DCS-BIOS/doc/developerguide.adoc#the-dcs-bios-import-protocol)
@@ -156,7 +153,6 @@ scripts in human language e.g. `Landing lights: Extend` rather than
 labelled to the virtual pilot and the identifiers and values used in DCS-BIOS.
 
 - command line option to specify a specific script rather than select from directory, allowing the script to run completely silent
-- load scripts on selection, not when the selection list is displayed
 - more obvious selection list reload action
 - Make the tests better, largely for the sake of better tests
 - 2-way comms with DCS-BIOS to, e.g., select a script automatically on loading
